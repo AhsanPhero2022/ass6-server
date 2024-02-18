@@ -116,3 +116,5 @@ app.get('/', (req, res) => {
     };
     res.json(serverStatus);
 });
+
+module.exports=app;
