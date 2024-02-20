@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: "https://preeminent-treacle-57fedb.netlify.app", credentials: true }));
 app.use(express.json());
 
 // MongoDB Connection URL
@@ -94,14 +94,18 @@ async function run() {
     });
     app.put("/products/:id", async (req, res) => {
       const id = req.params.id;
+
       const courser = req.body;
-      console.log(courser);
+
       const filter = { _id: new ObjectId(id) };
 
       const updatedClass = {
         $set: {
           title: courser.title,
-          
+          image: courser.image,
+          description: courser.description,
+          category: courser.category,
+          size: courser.size,
         },
       };
       const result = await productsCollection.updateOne(filter, updatedClass);
