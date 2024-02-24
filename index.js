@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 app.use(cors({ origin: "https://preeminent-treacle-57fedb.netlify.app", credentials: true }));
 app.use(express.json());
 
-// MongoDB Connection URL
+
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
