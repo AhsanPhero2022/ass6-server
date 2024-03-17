@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors({ origin: "https://preeminent-treacle-57fedb.netlify.app", credentials: true }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 
 
@@ -28,6 +28,7 @@ async function run() {
     const db = client.db("assignment6");
     const collection = db.collection("users");
     const productsCollection = db.collection("products");
+    const donarCollection = db.collection("donar")
 
     // User Registration
     app.post("/api/v1/register", async (req, res) => {
@@ -92,6 +93,12 @@ async function run() {
       const result = await productsCollection.insertOne(products);
       res.send(result);
     });
+    app.post("/donar", async(req, res)=>{
+      const donar = req.body;
+      const result = await donarCollection.insertOne(donar)
+      res.send(result)
+    })
+    
     app.put("/products/:id", async (req, res) => {
       const id = req.params.id;
 
