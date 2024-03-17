@@ -87,6 +87,10 @@ async function run() {
       const result = await productsCollection.find().toArray();
       res.send(result);
     });
+    app.get("/donar", async (req, res) => {
+      const result = await donarCollection.find().sort({ amount: 1 }).toArray();
+      res.send(result);
+    });
 
     app.post("/products", async (req, res) => {
       const products = req.body;
