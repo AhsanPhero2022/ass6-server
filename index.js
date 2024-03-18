@@ -92,6 +92,12 @@ async function run() {
       res.send(result);
     });
 
+    app.get('/testimonial', async(req, res)=>{
+      const result= await donarTestimonial.find().toArray()
+      res.send(result)
+    })
+
+
     app.post("/products", async (req, res) => {
       const products = req.body;
       const result = await productsCollection.insertOne(products);
