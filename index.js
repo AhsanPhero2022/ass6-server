@@ -29,7 +29,7 @@ async function run() {
     const collection = db.collection("users");
     const productsCollection = db.collection("products");
     const donarCollection = db.collection("donar")
-
+    const donarTestimonial = db.collection("testimonial")
     // User Registration
     app.post("/api/v1/register", async (req, res) => {
       const { name, email, password } = req.body;
@@ -103,6 +103,12 @@ async function run() {
       res.send(result)
     })
     
+    app.post('/testimonial', async(req, res)=>{
+      const testimonial = req.body;
+      const result = await donarTestimonial.insertOne(testimonial)
+      res.send(result)
+    })
+
     app.put("/products/:id", async (req, res) => {
       const id = req.params.id;
 
