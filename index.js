@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://preeminent-treacle-57fedb.netlify.app", credentials: true }));
 app.use(express.json());
 
 
@@ -31,6 +31,9 @@ async function run() {
     const donarCollection = db.collection("donar")
     const donarTestimonial = db.collection("testimonial")
     const volunteerCollection = db.collection('volunteer')
+const communityPostCollection = db.collection('post')
+
+
     // User Registration
     app.post("/api/v1/register", async (req, res) => {
       const { name, email, password } = req.body;
@@ -97,7 +100,15 @@ async function run() {
       const result= await donarTestimonial.find().toArray()
       res.send(result)
     })
+    app.get('/volunteer', async(req, res)=>{
+      const volunteer = await volunteerCollection.find().toArray()
+      res.send(volunteer)
+    })
 
+    app.get('/post', async(req, res)=>{
+      const result = await communityPostCollection.find().toArray()
+      res.send(result)
+    })
 
     app.post("/products", async (req, res) => {
       const products = req.body;
@@ -107,6 +118,11 @@ async function run() {
     app.post('/volunteer', async(req, res)=>{
       const volunteer = req.body;
       const result = await volunteerCollection.insertOne(volunteer)
+      res.send(result)
+    })
+    app.post('/post', async(req, res)=>{
+      const volunteer = req.body;
+      const result = await communityPostCollection.insertOne(volunteer)
       res.send(result)
     })
     app.post("/donar", async(req, res)=>{
